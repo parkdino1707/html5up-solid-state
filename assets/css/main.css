@@ -1,16 +1,28 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
 @import url("fontawesome-all.min.css");
 
-@media screen and (orientation:landscape) {
+@media screen and (orientation:portrait) {
+    body {
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+}
+	function checkOrientation() {
+    var winWidth = $(window).width();
+    var winHeight = $(window).height();
 
-  #container {
-    -ms-transform: rotate(-90deg); /* IE 9 */
-    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
-    transform: rotate(-90deg);
-    width: /* screen width */ ;
-    height: /* screen height */ ;
-    overflow: scroll;
-  }
+    if (winHeight > winWidth) {
+        $('body').width(winHeight).height(winWidth); // swap the width and height of BODY if necessary
+    }
+}
+
+checkOrientation(); // Check orientation on page load
+
+// Check orientation on page resize (mainly for demo as it's unlikely a tablet's window size will change)
+var resizeEnd;
+$(window).resize(function(){ 
+   clearTimeout(resizeEnd);
+   resizeEnd = setTimeout(checkOrientation, 100);
+});
 }
 
 html, body, div, span, applet, object,
